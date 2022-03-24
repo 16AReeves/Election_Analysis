@@ -67,10 +67,44 @@
 ---
 * ##### Diana DeGette won the election with a total of 73.8% of the votes. Diana DeGette's vote count was 272,892 people. 
 ```
-enter code here
+ # Save the final candidate vote count to the text file.
+ 
+    for candidate_name in candidate_votes:
+
+        # Retrieve vote count and percentage
+        
+        votes = candidate_votes.get(candidate_name)
+        vote_percentage = float(votes) / float(total_votes) * 100
+        candidate_results = (
+            f"{candidate_name}: {vote_percentage:.1f}% ({votes:,})\n")
+
+        # Print each candidate's voter count and percentage to the terminal.
+        
+        print(candidate_results)
+        
+        #  Save the candidate results to our text file.
+        
+        txt_file.write(candidate_results)
+
+        # Determine winning vote count, winning percentage, and candidate.
+        
+        if (votes > winning_count) and (vote_percentage > winning_percentage):
+            winning_count = votes
+            winning_candidate = candidate_name
+            winning_percentage = vote_percentage
+
+    # Print the winning candidate (to terminal)
+    
+    winning_candidate_summary = (
+        f"-------------------------\n"
+        f"Winner: {winning_candidate}\n"
+        f"Winning Vote Count: {winning_count:,}\n"
+        f"Winning Percentage: {winning_percentage:.1f}%\n"
+        f"-------------------------\n")
+    print(winning_candidate_summary)
 ```
-##### explain code here
+##### This section of code loops through the data to finialize the vote count for each candidate. The code starts out by calculating the voter percentage, per candidate, and writes that to the text file. Then an if condition is considered to determine who won the election, based on the highest vote count and the highest percentage of the votes. After calculating this, the output is written to a text file for a final summary. 
 ---
 #### Election-Audit Summary
 ---
-##### Provide a summary of how this script can be used in the future, with modifications. Give at least 2 examples on how this can be changed for future elections
+##### This script can easily be used in any upcoming elections. One example of a change would be the actual data file used. The csv file, containing all of this election data, should be changed so that an error doesn't occur. Without changing the file, the results will be the same since the same data will be used. Another example of a change would be changing the directory of the output file, if need be. Another change to the code could be expanding the code to calculate the results per state, then show the overall winning candidate for the presidency. 
